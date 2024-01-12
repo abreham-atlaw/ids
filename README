@@ -1,0 +1,12 @@
+
+Steps to run:
+
+1. Install Requirements(pip install -r requirements.txt)
+
+2. Set PYTHONPATH to src/python(use absolute path)(export PYTHONPATH=/path/to/project/src/python)
+    or
+    Just navigate to the src/python director
+
+3. Run core/main.py(python main.py)
+
+Note: The program needs root privileges to work properly.
