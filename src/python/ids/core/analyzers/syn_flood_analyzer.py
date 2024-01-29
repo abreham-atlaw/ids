@@ -16,7 +16,6 @@ class SynFloodAnalyzer(Analyzer):
 
 	@staticmethod
 	def __count_src_syns(pkts: typing.List[Packet]) -> typing.Dict[str, int]:
-		print(len(pkts))
 		counts = {}
 		for pkt in pkts:
 			if pkt[TCP].flags != "S":
@@ -31,7 +30,6 @@ class SynFloodAnalyzer(Analyzer):
 		syn_counts = self.__count_src_syns(pkts)
 
 		reports = []
-		print(syn_counts)
 		for src, count in syn_counts.items():
 			if count > self.__threshold:
 				report = IntrusionReport(

@@ -2,6 +2,8 @@ import typing
 from ids.core.analyzers.ping_sweep_analyzer import PingSweepAnalyzer
 from ids.core.analyzers.port_scan_analyzer import PortScanAnalyzer
 from ids.core.analyzers.syn_flood_analyzer import SynFloodAnalyzer
+from ids.core.analyzers.dos_analyzer import DoSAnalyzer
+
 from ids.core.config import CHUNK_SIZE, INTERFACE
 
 from ids.lib.ids.analyzer import Analyzer, LogAnalyzer
@@ -14,10 +16,10 @@ class CoreProviders:
 	@staticmethod
 	def provider_analyzers() -> typing.List[Analyzer]:
 		return [
-			LogAnalyzer(),
+			# LogAnalyzer(),
 			PortScanAnalyzer(),
-			PingSweepAnalyzer(),
-			SynFloodAnalyzer()
+			SynFloodAnalyzer(),
+			DoSAnalyzer()
 		]
 
 	@staticmethod
