@@ -14,11 +14,13 @@ class Detector:
 			self,
 			analyzers: typing.List[Analyzer],
 			handlers: typing.List[IntrusionHandler],
-			chunk_size=100
+			chunk_size=100,
+			interface: str=None
 	):
 		self.__analyzers = analyzers
 		self.__chunk_size = chunk_size
 		self.__handlers = handlers
+		self.__interface = interface
 
 	def __analyze_packets(self, pkts: typing.List[Packet]) -> typing.List[IntrusionReport]:
 		reports = []
@@ -37,6 +39,7 @@ class Detector:
 		self.__handle_reports(reports)
 
 	def start(self):
+		print("[+]Starting listening...")
 		while True:
-			chunk = sniff(count=self.__chunk_size)
+			chunk = sniff(count=self.__chunk_size, iface=self.__interface)
 			self.__handle_chunk(list(chunk))

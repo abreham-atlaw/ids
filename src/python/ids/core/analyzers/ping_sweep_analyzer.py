@@ -16,14 +16,14 @@ class PingSweepAnalyzer(Analyzer):
 		self.__threshold = threshold
 
 	@staticmethod
-	def __map_src_dest(pkts: typing.List[Packet]) -> typing.Dict[str, typing.List[str]]:
+	def __map_src_dest(pkts: typing.List[Packet]) -> typing.Dict[str, typing.Set[str]]:
 		src_dests = {}
 
 		for pkt in pkts:
 			if pkt[ICMP].type != 8:
 				continue
 			if src_dests.get(pkt[IP].src) is None:
-				src_dests[pkt[IP].src] = []
+				src_dests[pkt[IP].src] = set()
 			src_dests.get(pkt[IP].src).append(pkt[IP].dst)
 
 		return src_dests

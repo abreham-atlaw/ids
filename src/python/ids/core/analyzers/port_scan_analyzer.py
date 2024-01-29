@@ -14,12 +14,12 @@ class PortScanAnalyzer(Analyzer):
 		super().__init__(*args, **kwargs)
 		self.__threshold = threshold
 
-	def __map_src_ports(self, pkts: typing.List[Packet]) -> typing.Dict[str, typing.List[int]]:
+	def __map_src_ports(self, pkts: typing.List[Packet]) -> typing.Dict[str, typing.Set[int]]:
 		src_ports = {}
 		for pkt in pkts:
 			if src_ports.get(pkt[IP].src) is None:
-				src_ports[pkt[IP].src] = []
-			src_ports[pkt[IP].src].append(pkt[TCP].dport)
+				src_ports[pkt[IP].src] = set()
+			src_ports[pkt[IP].src].add(pkt[TCP].dport)
 
 		return src_ports
 
