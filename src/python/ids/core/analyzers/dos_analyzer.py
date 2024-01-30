@@ -12,7 +12,7 @@ class DoSAnalyzer(Analyzer):
 
 	_filter_layer = IP
 
-	def __init__(self, *args, threshold: int=1000, **kwargs):
+	def __init__(self, *args, threshold: int=int(2e3), **kwargs):
 		super().__init__(*args, **kwargs)
 		self.__threshold = threshold
 
@@ -32,7 +32,7 @@ class DoSAnalyzer(Analyzer):
 				counts[src] = 1
 				continue
 			counts[src] += 1
-			rates[src] = counts[src]/(pkt.time - initial_times[src] + 1e-9)
+			rates[src] = counts[src]/((pkt.time - initial_times[src]) + 1e-9)
 		
 		return rates
 
