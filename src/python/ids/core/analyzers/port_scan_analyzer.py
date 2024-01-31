@@ -5,10 +5,11 @@ from scapy.packet import Packet
 
 from ids.lib.ids.analyzer import Analyzer
 from ids.lib.ids.data import IntrusionReport
-
+from ids.lib.ids.analyzer.analyzer import Analyzer
 
 class PortScanAnalyzer(Analyzer):
 	_filter_layer = TCP
+	_filter_direction = Analyzer.PacketDirection.incoming
 
 	def __init__(self, *args, threshold: int = 10, **kwargs):
 		super().__init__(*args, **kwargs)
