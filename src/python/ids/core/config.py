@@ -1,6 +1,6 @@
 import socket
 
 
-INTERFACE = "wlan0"
+INTERFACE = "enp0s3"
 HOST_IP = None
-CHUNK_SIZE = int(1e4)
+CHUNK_SIZE = int(1e3)

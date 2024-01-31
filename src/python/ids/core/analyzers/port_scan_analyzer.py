@@ -11,7 +11,7 @@ class PortScanAnalyzer(Analyzer):
 	_filter_layer = TCP
 	_filter_direction = Analyzer.PacketDirection.incoming
 
-	def __init__(self, *args, threshold: int = 50, **kwargs):
+	def __init__(self, *args, threshold: int = 10, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.__threshold = threshold
 
