@@ -10,7 +10,7 @@ from ids.lib.ids.data import IntrusionReport
 class SynFloodAnalyzer(Analyzer):
 	_filter_layer = TCP
 
-	def __init__(self, *args, threshold=100, **kwargs):
+	def __init__(self, *args, threshold=500, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.__threshold = threshold
 

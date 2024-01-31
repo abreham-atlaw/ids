@@ -35,6 +35,12 @@ class Analyzer(ABC):
 		if self._filter_direction == Analyzer.PacketDirection.all:
 			return pkts
 		
+		pkts = [
+			pkt
+			for pkt in pkts
+			if IP in pkt
+		]
+
 		if self._filter_direction == Analyzer.PacketDirection.incoming:
 			return [
 				pkt

@@ -2,7 +2,7 @@ import requests
 from threading import Thread
 
 THREADS = 5000
-ENDPOINT = "http://192.168.43.167:8000"
+ENDPOINT = "http://192.168.1.4:8000"
 
 def send_requests():
     while True:

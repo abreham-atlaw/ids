@@ -11,10 +11,12 @@ from ids.lib.ids.data import IntrusionReport
 class DoSAnalyzer(Analyzer):
 
 	_filter_layer = IP
+	_filter_direction = Analyzer.PacketDirection.incoming
 
-	def __init__(self, *args, threshold: int=int(2e3), **kwargs):
+	def __init__(self, *args, threshold: int=100, count_threshold=100, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.__threshold = threshold
+		self.__count_threshold = count_threshold
 
 	@staticmethod
 	def __map_rates(pkts: typing.List[Packet]) -> typing.Dict[str, typing.Set[str]]:
@@ -34,19 +36,19 @@ class DoSAnalyzer(Analyzer):
 			counts[src] += 1
 			rates[src] = counts[src]/((pkt.time - initial_times[src]) + 1e-9)
 		
-		return rates
+		return rates, counts
 
 
 	def _analyze(self, pkts: typing.List[Packet]) -> typing.List[IntrusionReport]:
 
-		rates = self.__map_rates(pkts)
+		rates, counts = self.__map_rates(pkts)
 
 		reports = []
-		for src, rate in rates.items():
-			if rate > self.__threshold:
+		for src in rates.keys():
+			if rates[src] > self.__threshold and counts[src] > self.__count_threshold:
 				report = IntrusionReport(
 					type="DoS",
-					details=f"Detected DoS from {src} (request rate: {rate})",
+					details=f"Detected DoS from {src} (request rate: {rates[src]})",
 					source=src,
 					level=IntrusionReport.Severity.moderate
 				)
